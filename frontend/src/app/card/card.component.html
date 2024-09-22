@@ -1,0 +1,36 @@
+<div class="order-card h-[35vh] bg-gray-200 rounded-3xl overflow-hidden">
+    <div class="card-header flex justify-between p-3 min-h-[68px]" [ngStyle]="{'background' : headerColor}">
+        <!-- Left Section: Order number, time, and VIP badges -->
+        <div class="header-info">
+            <div class="flex ">
+                <!-- Order number and Time -->
+                <div class="text-white font-bold text-base leading-none">#{{order.id}}</div>
+                <div class="text-white text-xs ml-2">{{getTimeDifference(order.createdDatetime)}}</div>
+            </div>
+            <!-- VIP Badges -->
+            <div class="flex space-x-2 mt-2">
+                <ng-container *ngIf="order.status != OrderStatus.Completed && !activeBots">
+                    <span class="bg-[#FFB800] text-black px-2 py-1 text-[8px] rounded-full">No Bot</span>
+                </ng-container>
+
+                <ng-container *ngIf="order.type === OrderType.VIP">
+                    <span class="bg-[#DA8FFF] text-white px-2 py-1 text-[8px] rounded-full">VIP</span>
+                </ng-container>
+
+
+            </div>
+        </div>
+
+        <!-- Right Section: Bot Icon and Countdown -->
+        <ng-container *ngIf="order.status === OrderStatus.InProgress">
+            <div class="header-countdown flex flex-col items-center space-y-1">
+                <div class="w-6 bg-white rounded-full p-1">
+                    <img src="assets/images/icons/bot.png" alt="">
+                </div>
+                <div class="text-white text-xs">{{order.remainingTime}}</div>
+            </div>
+        </ng-container>
+
+    </div>
+
+</div>

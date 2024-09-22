@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  LOCAL_URL: 'http://localhost:3000',
+  API_PATH: '/mcdonalds-order-api',
+  PROJECT_NAME: 'McDonald\'s Order Controller'
 };
 
 /*
