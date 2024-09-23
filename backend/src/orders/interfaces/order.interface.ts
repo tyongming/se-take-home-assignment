@@ -16,4 +16,5 @@ export interface Order {
   type: OrderType;
   status: OrderStatus;
   createdDatetime: Date;
+  updatedDatetime: Date;
 }

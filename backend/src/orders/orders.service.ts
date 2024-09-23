@@ -2,7 +2,7 @@ import { Inject, Injectable, NotFoundException, forwardRef } from '@nestjs/commo
 import { CreateOrderDto } from './dto/create-order.dto';
 import { Order, OrderStatus, OrderType } from './interfaces/order.interface';
 import { BotService } from 'src/bot/bot.service';
-import { OrdersGateway } from 'src/websockets/orders/orders.gateway';
+import { MessageType, OrdersGateway } from 'src/websockets/orders/orders.gateway';
 
 @Injectable()
 export class OrdersService {
@@ -20,6 +20,7 @@ export class OrdersService {
       type: createOrderDto.type,
       status: OrderStatus.Pending,
       createdDatetime: new Date(),
+      updatedDatetime: new Date(),
     }
 
     if (newOrder.type === 'VIP') {
@@ -39,7 +40,7 @@ export class OrdersService {
 
     const { total, normal, vip } = this.getOrderStats();
 
-    this.ordersGateway.sendOrderUpdate(newOrder);
+    this.ordersGateway.sendOrderUpdate({...newOrder, messageType: MessageType.OrderUpdate});
 
     this.botService.assignOrder();
 
@@ -112,6 +113,7 @@ export class OrdersService {
     }
 
     updateOrder.status = status;
+    updateOrder.updatedDatetime = new Date();
 
     return { message: 'Order updated successfully', updateOrder };
   }

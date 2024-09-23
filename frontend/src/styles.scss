@@ -53,3 +53,18 @@ body {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.snackbar {
+  background: #A5A5A9;
+  border-radius: 24px;
+  transform: translateY(25px)!important; 
+  color: white;
+}
+
+.cdk-overlay-pane {
+  transform: translateY(-75px)!important;
+}
+
+.mat-simple-snackbar-action {
+  color: #D8D8D8 !important;
+}

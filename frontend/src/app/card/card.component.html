@@ -9,7 +9,7 @@
             </div>
             <!-- VIP Badges -->
             <div class="flex space-x-2 mt-2">
-                <ng-container *ngIf="order.status != OrderStatus.Completed && !activeBots">
+                <ng-container *ngIf="order.status != OrderStatus.Completed && !totalBots">
                     <span class="bg-[#FFB800] text-black px-2 py-1 text-[8px] rounded-full">No Bot</span>
                 </ng-container>
 

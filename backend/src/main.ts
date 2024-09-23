@@ -8,7 +8,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.enableCors({
-    origin: 'http://localhost:4200',  // Allow specific origin
+    origin: 'http://localhost:4200', 
     methods: 'GET,POST,PUT,DELETE',
     credentials: true,
   });
@@ -22,7 +22,7 @@ async function bootstrap() {
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('swagger-doc', app, document);
+  SwaggerModule.setup('mcdonalds-order-api/swagger-doc', app, document);
 
   // Enable validation globally
   app.useGlobalPipes(new ValidationPipe({

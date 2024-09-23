@@ -10,7 +10,7 @@ import { OrderStatus, OrderType, Orders } from 'src/app/app.component';
 export class CardComponent implements OnInit {
 
   @Input() order!: Orders;
-  @Input() activeBots!: number;
+  @Input() totalBots!: number;
 
   OrderType = OrderType;
   OrderStatus = OrderStatus;
@@ -24,7 +24,7 @@ export class CardComponent implements OnInit {
 
   ngOnChanges() {
     if (this.order.status === OrderStatus.Pending || this.order.status === OrderStatus.InProgress) {
-      if (!this.activeBots) {
+      if (!this.totalBots) {
         this.headerColor = '#FCCABD';
       } else if (this.order.type === OrderType.VIP) {
         this.headerColor = '#f3e0be';

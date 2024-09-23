@@ -1,8 +1,8 @@
 import { Inject, Injectable, forwardRef } from '@nestjs/common';
-import { Bot, BotStatus } from './interfaces/bot.interface';
+import { Bot } from './interfaces/bot.interface';
 import { OrdersService } from 'src/orders/orders.service';
 import { Order, OrderStatus } from 'src/orders/interfaces/order.interface';
-import { OrdersGateway } from 'src/websockets/orders/orders.gateway';
+import { MessageType, OrdersGateway } from 'src/websockets/orders/orders.gateway';
 
 @Injectable()
 export class BotService {
@@ -29,9 +29,25 @@ export class BotService {
 
     console.log(`Bot ${newBot.id} created successfully`);
 
+    this.ordersGateway.sendOrderUpdate({totalBots: this.bots.length ,idleBots: this.idleBots.length, messageType: MessageType.BotUpdate,});
+
     this.assignOrder();
 
     return { message: 'Bot created successfully', newBot };
+  }
+
+  findAll() {
+    return this.bots;
+  }
+
+  findOne(id: number) {
+    return `This action returns a #${id} bot`;
+  }
+
+  // Get count of active bots
+  getActiveBotCount() {
+    const activeBots = this.idleBots.length;
+    return { activeBots };
   }
 
   async assignOrder() {
@@ -78,6 +94,8 @@ export class BotService {
     this.ordersGateway.sendOrderUpdate({
       ...order,
       remainingTime: totalTime,  // Send the initial remaining time (in seconds)
+      idleBots: this.idleBots.length,
+      messageType: MessageType.OrderUpdate,
     });
 
     const interval = setInterval(() => {
@@ -88,6 +106,7 @@ export class BotService {
       this.ordersGateway.sendOrderUpdate({
         ...order,
         remainingTime: remainingTime,  // Remaining time in seconds
+        messageType: MessageType.OrderUpdate,
       });
 
       // Stop the interval when time is up
@@ -116,25 +135,11 @@ export class BotService {
       this.idleBots.push(bot);
 
       // Notify the frontend that the order is completed
-      this.ordersGateway.sendOrderUpdate(order);
+      this.ordersGateway.sendOrderUpdate({...order, idleBots: this.idleBots.length, messageType: MessageType.OrderUpdate,});
 
       // Try to assign more orders
       this.assignOrder();
     }, 10000);  // Simulate order processing for 10 seconds
-  }
-
-  findAll() {
-    return this.bots;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} bot`;
-  }
-
-  // Get count of active bots
-  getActiveBotCount() {
-    const activeBots = this.idleBots.length;
-    return { activeBots };
   }
 
   remove() {
@@ -148,6 +153,7 @@ export class BotService {
     if (bot.isIdle) {
       this.idleBots = this.idleBots.filter(b => b.id !== bot.id);
       console.log(`Idle bot ${bot.id} has been removed.`);
+      this.ordersGateway.sendOrderUpdate({totalBots: this.bots.length ,idleBots: this.idleBots.length, messageType: MessageType.BotUpdate,});
       return { message: `Idle bot ${bot.id} has been removed.`, bot: bot };
     }
 
@@ -167,7 +173,10 @@ export class BotService {
         // Move the order back to Pending
         const order = this.ordersService.findOne(bot.processingOrderId);
         this.ordersService.update(order, OrderStatus.Pending);
+
         console.log(`Bot ${bot.id} was removed. Order ${order.id} is now pending.`);
+
+        this.ordersGateway.sendOrderUpdate({removedBotOrder: {id: order.id, status: order.status}, totalBots: this.bots.length, messageType: MessageType.BotUpdate,});
 
         this.assignOrder();
 
