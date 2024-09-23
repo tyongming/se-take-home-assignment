@@ -19,7 +19,7 @@ This project is a prototype for managing McDonald's automated cooking bots, hand
 ### Steps:
 1. Clone the repository:
    ```bash
-   git clone https://github.com/tyongming/se-take-home-assignment.git
+   git clone -b devming https://github.com/tyongming/se-take-home-assignment.git
    
 2. Navigate to the backend folder and install dependencies:
     ```bash
