@@ -23,8 +23,8 @@ export class CardComponent implements OnInit {
   }
 
   ngOnChanges() {
-    if(this.order.status === OrderStatus.Pending || this.order.status === OrderStatus.InProgress) {
-      if(!this.activeBots) {
+    if (this.order.status === OrderStatus.Pending || this.order.status === OrderStatus.InProgress) {
+      if (!this.activeBots) {
         this.headerColor = '#FCCABD';
       } else if (this.order.type === OrderType.VIP) {
         this.headerColor = '#f3e0be';
@@ -38,10 +38,20 @@ export class CardComponent implements OnInit {
     // Use moment to parse the created date and get the difference in minutes
     const createdMoment = moment(createdAt);
     const now = moment();
+
     const diffInMinutes = now.diff(createdMoment, 'minutes');
-  
-    if (diffInMinutes < 1) return 'Just now';
-    return `${diffInMinutes}m ago`;
+    const diffInHours = now.diff(createdMoment, 'hours');
+    const diffInDays = now.diff(createdMoment, 'days');
+
+    if (diffInDays >= 1) {
+      return `${diffInDays}d ${diffInHours % 24}h ${diffInMinutes % 60}m ago`;
+    } else if (diffInHours >= 1) {
+      return `${diffInHours}h ${diffInMinutes % 60}m ago`;
+    } else if (diffInMinutes >= 1) {
+      return `${diffInMinutes}m ago`;
+    } else {
+      return 'Just now';
+    }
   }
 
 }

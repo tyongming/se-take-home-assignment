@@ -46,7 +46,6 @@ export class AppComponent implements OnInit {
 
     // Subscribe to WebSocket updates
     this._webSocketService.listenForOrderUpdates().subscribe((updatedOrder) => {
-      console.log("ming", updatedOrder);
       this.updateOrderStatus(updatedOrder);
     });
   }
@@ -66,7 +65,7 @@ export class AppComponent implements OnInit {
       const index = this.pendingOrders.findIndex(order => order.id === updatedOrder.id);
       if (index !== -1) {
         this.pendingOrders.splice(index, 1);
-        this.completedOrders.push(updatedOrder);
+        this.completedOrders.unshift(updatedOrder); // Add to the beginning of the array
       }
 
     } else {
@@ -97,7 +96,10 @@ export class AppComponent implements OnInit {
   getOrdersGroupedByStatus() {
     this._appService.getOrdersGroupedByStatus().subscribe((res: any) => {
       this.pendingOrders = res.pending;
-      this.completedOrders = res.complete;
+      // sort in decending order of createdDatetime
+      this.completedOrders = res.complete.sort((a: Orders, b: Orders) => {
+        return new Date(b.createdDatetime).getTime() - new Date(a.createdDatetime).getTime();
+      });
     });
   }
 
@@ -113,10 +115,6 @@ export class AppComponent implements OnInit {
     this.normalOrders = res.normal;
     this.vipOrders = res.vip;
     console.log(res.total);
-  }
-
-  trackByOrderId(index: number, order: Orders): number {
-    return order.id;  // Use the order's ID as the unique identifier
   }
 
   addBot() {

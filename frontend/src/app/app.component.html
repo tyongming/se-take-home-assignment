@@ -33,7 +33,7 @@
 
             <ng-container *ngIf="pendingOrders.length > 0 else noPendingOrders">
                 <div class="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 pl-0  p-4 rounded-lg overflow-auto">
-                    <ng-container *ngFor="let order of pendingOrders; trackBy: trackByOrderId">
+                    <ng-container *ngFor="let order of pendingOrders;">
                         <app-card [order]="order" [activeBots]="activeBots"></app-card>
                     </ng-container>
                 </div>
