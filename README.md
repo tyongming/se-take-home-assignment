@@ -9,7 +9,6 @@ This project is a prototype for managing McDonald's automated cooking bots, hand
 - [Architecture](#architecture)
 - [API Documentation](#api-documentation)
 - [Usage](#usage)
-- [Future Enhancements](#future-enhancements)
 
 ## Installation
 
