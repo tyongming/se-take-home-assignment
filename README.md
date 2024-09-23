@@ -1,38 +1,91 @@
-## FeedMe Software Engineer Take Home Assignment
-Below is a take home assignment before the interview of the position. You are required to
-1. Understand the situation and use case. You may contact the interviewer for further clarification.
-2. Fork this repo and implement the requirement with your most familiar tools.
-3. Complete the requirement and perform your own testing.
-4. Provide documentation for the any part that you think is needed.
-5. Commit into your own github and share your repo with the interviewer.
-6. Bring the source code and functioning prototype to the interview session.
+# McDonald's Order Processing System
 
-### Situation
-McDonald is transforming their business during COVID-19. They wish to build the automated cooking bots to reduce workforce and increase their efficiency. As one of the software engineer in the project. You task is to create an order controller which handle the order control flow. 
+## Introduction
+This project is a prototype for managing McDonald's automated cooking bots, handling customer orders, VIP prioritization, and bot management. It allows orders to be submitted, processed, and managed by cooking bots in real-time, simulating an automated system for fast food order fulfillment.
 
-### User Story
-As below is part of the user story:
-1. As McDonald's normal customer, after I submitted my order, I wish to see my order flow into "PENDING" area. After the cooking bot process my order, I want to see it flow into to "COMPLETE" area.
-2. As McDonald's VIP member, after I submitted my order, I want my order being process first before all order by normal customer.  However if there's existing order from VIP member, my order should queue behind his/her order.
-3. As McDonald's manager, I want to increase or decrease number of cooking bot available in my restaurant. When I increase a bot, it should immediately process any pending order. When I decrease a bot, the processing order should remain un-process.
-4. As McDonald bot, it can only pickup and process 1 order at a time, each order required 10 seconds to complete process.
+## Table of Contents
+- [Installation](#installation)
+- [Features](#features)
+- [Architecture](#architecture)
+- [API Documentation](#api-documentation)
+- [Usage](#usage)
+- [Future Enhancements](#future-enhancements)
 
-### Requirements
-1. When "New Normal Order" clicked, a new order should show up "PENDING" Area.
-2. When "New VIP Order" clicked, a new order should show up in "PENDING" Area. It should place in-front of all existing "Normal" order but behind of all existing "VIP" order.
-3. The order number should be unique and increasing.
-4. When "+ Bot" clicked, a bot should be created and start processing the order inside "PENDING" area. after 10 seconds picking up the order, the order should move to "COMPLETE" area. Then the bot should start processing another order if there is any left in "PENDING" area.
-5. If there is no more order in the "PENDING" area, the bot should become IDLE until a new order come in.
-6. When "- Bot" clicked, the newest bot should be destroyed. If the bot is processing an order, it should also stop the process. The order now back to "PENDING" and ready to process by other bot.
-7. No data persistance is needed for this prototype, you may perform all the process inside memory.
+## Installation
 
-### Functioning Prototype
-You may demostrate your final funtioning prototype with **one and only one** of the following method:
-- CLI application
-- UI application
-- E2E test case
+### Prerequisites:
+- **Node.js** (v16.13.0 or compatible)
+- **npm**
 
-### Tips on completing this task
-- Testing, testing and testing. Make sure the prototype is functioning and meeting all the requirements.
-- Do not over engineering. Try to scope your working hour within 3 hours (1 hour per day). You may document all the optimization or technology concern that you think good to bring in the solution.
-- Complete the implementation as clean as possible, clean code is a strong plus point, do not bring in all the fancy tech stuff.
+### Steps:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/tyongming/se-take-home-assignment.git
+   
+2. Navigate to the backend folder and install dependencies:
+    ```bash
+    cd backend
+    npm install
+    
+3. Navigate to the frontend folder and install dependencies:
+    ```bash
+    cd ../frontend
+    npm install
+    
+4. Run the backend server:
+    ```bash
+    cd backend
+    npm run start:dev
+    
+5. Run the frontend server:
+    ```bash
+    cd ../frontend
+    ng serve
+    
+The backend server will run on http://localhost:3000 and the frontend on http://localhost:4200.
+
+## Features
+- **Add Normal and VIP Orders:** Customers can place both normal and VIP orders, with VIP orders given priority.
+- **Manage Cooking Bots:** Add or remove bots to handle pending orders. Bots will pick up and process orders automatically.
+- **Real-Time Updates:** Watch as orders move from the Pending area to Completed, with a real-time countdown for each processing order.
+- **Order Processing:** Orders are processed one at a time by each bot, with VIP orders being prioritized.
+- **Bot Removal Handling:** If a bot is removed while processing an order, the order is returned to the Pending area.
+
+## Architecture
+The project is structured into two main parts:
+
+1. **Frontend (Angular):**
+
+- This part is responsible for the user interface, where users can place orders and manage bots.
+- The frontend interacts with the backend through HTTP API calls and WebSockets for real-time updates.
+
+2. **Backend (NestJS):**
+
+- This is the core logic of the system, responsible for managing orders, assigning orders to bots, and handling real-time updates via WebSockets.
+- The backend uses in-memory storage for orders and bots, as no persistent storage is required for this prototype.
+
+The backend processes orders by assigning them to bots, and the frontend reflects the real-time state of orders and bots through WebSocket communications.
+
+## API Documentation
+The backend API is documented with **Swagger**. After starting the backend server, you can view the API documentation by visiting:
+    
+    http://localhost:3000/mcdonalds-order-api/swagger-docs
+
+
+## Usage
+### Adding Orders:
+- **Add Normal or VIP Orders:**
+    - Click the "New Normal Order" button to add a normal order.
+    - Click the "New VIP Order" button to add a VIP order.
+    - Orders will appear in the Pending area and be processed based on priority.
+    
+### Managing Bots:
+- **Add Bots:** Click the "Add Bot" button to add a new bot that will handle orders from the Pending list.
+- **Remove Bots:** Click the "Remove Bot" button to remove the most recently added bot. If the bot is currently processing an order, the order will be returned to the Pending list.
+
+### Real-Time Monitoring:
+- Orders are processed in real-time, and you can monitor the progress using countdown timers. The system updates in real-time via WebSockets, ensuring that the frontend always displays the current state of the orders and bots.
+
+### Order Completion:
+
+- Once an order is completed, it moves to the Completed area. If all bots are removed, processing halts, and remaining orders stay in Pending.
