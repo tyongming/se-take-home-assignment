@@ -1,0 +1,57 @@
+﻿Test Case No.,Description,Precondition,Test Steps,Expected Outcome,Status
+1,Add a Normal Order,"System running, idle bots available","1. Click ""New Normal Order""","Order is added to Pending, processed by bot, and moved to Completed in 10 seconds",Pass
+,,,2. Verify order appears in Pending area,,
+,,,3. Bot processes order,,
+,,,4. Order moves to Completed after 10 seconds,,
+2,Add a VIP Order,"System running, normal orders in Pending","1. Click ""New VIP Order""",VIP order is prioritized over normal orders and processed first,Pass
+,,,2. Verify VIP order appears before normal orders,,
+,,,3. Bot processes VIP order first,,
+,,,4. VIP order moves to Completed before normal orders,,
+3,Add Multiple Orders Simultaneously,Multiple bots and orders available,1. Add 5 normal and 3 VIP orders,"Multiple orders are processed in parallel, with VIP orders prioritized over normal orders",Pass
+,,,2. Add 4 bots,,
+,,,3. Verify bots process orders in priority sequence,,
+,,,4. Verify remaining orders move to Completed after 10 seconds,,
+4,Remove a Bot While Processing an Order,Bot is processing an order,"1. Click ""Remove Bot"" while bot processes an order","Order moves back to Pending, another bot picks it up if available",Pass
+,,,2. Verify order moves back to Pending,,
+,,,3. Another bot should pick up the order (if available),,
+5,Remove Multiple Bots While Processing,Multiple bots and orders,1. Add 5 orders and 3 bots,Removed bots' orders are returned to Pending and picked up by idle bots,Pass
+,,,2. Remove 2 bots while they process orders,,
+,,,3. Verify orders return to Pending,,
+,,,4. Remaining bots should pick up the orders,,
+6,No Bots Available (Orders Remain Pending),No bots in the system,1. Add multiple normal and VIP orders,"Orders remain in Pending until bots are available, VIP orders processed first",Pass
+,,,2. Verify orders remain in Pending,,
+,,,3. Add bots to process the orders,,
+7,Add and Remove Bots Dynamically,Orders in Pending area,"1. Click ""Add Bot""","Bots are dynamically added and removed, orders return to Pending if bot is removed while processing",Pass
+,,,2. Verify bot starts processing orders,,
+,,,"3. Click ""Remove Bot""",,
+,,,4. Check if bot is removed and its order (if any) returns to Pending,,
+8,View Real-Time Status of Orders,"System running, orders in Pending area",1. Add normal and VIP orders,Orders' real-time status and relative timers update correctly,Pass
+,,,2. Monitor orders' real-time status updates,,
+,,,3. Observe relative timer,,
+9,Real-Time Countdown Timer for Order Processing,"Bots available, order is being processed",1. Add a normal or VIP order,Countdown timer updates in real-time and finishes when the order is processed,Pass
+,,,2. Monitor the countdown timer for the order,,
+,,,3. Verify timer updates every second and reaches 0 when the order is completed,,
+10,Remove All Bots and Reassign Orders,"Orders in progress, bots are removed",1. Add 5 orders and 3 bots,"Orders return to Pending, remaining in Pending until a new bot is added",Pass
+,,,2. Remove all bots,,
+,,,3. Verify all orders return to Pending and wait for new bots,,
+11,Bot Becomes Idle When No Orders Left,"Bots available, no Pending orders",1. Add 5 orders and 3 bots,"Bots become idle when no orders are available, and pick up new orders as soon as they arrive",Pass
+,,,2. Verify bots become idle after complete processing all orders,,
+,,,3. Add an order and check if a bot picks it up immediately,,
+12,Order Prioritization for VIP Orders,Multiple normal and VIP orders in Pending,1. Add 3 normal and 2 VIP orders,VIP orders are always processed before normal orders,Pass
+,,,2. Verify VIP orders are prioritized over normal orders,,
+,,,"3. Bots process VIP orders first, followed by normal orders",,
+13,Order Assignment After Bot Removal Mid-Process,Bot removed while processing an order,1. Add 5 orders and 3 bots,Idle bot picks up the order after the first bot is removed,Pass
+,,,2. Remove 1 bot while it processes an order,,
+,,,3. Check if another idle bot picks up the order from Pending,,
+14,"High Load Test (50 Orders, Limited Bots)","High number of orders, limited bots",1. Add 50 orders,"System handles high load without issues, processes orders in sequence",Pass
+,,,2. Add 3 bots,,
+,,,3. Verify system behavior and ensure no crashes or delays,,
+15,Track Order Statistics,Orders in Pending and Completed areas,1. Add multiple normal and VIP orders,Stats panel updates accurately based on current orders,Pass
+,,,"2. Check total orders, normal orders, and VIP orders in stats panel",,
+,,,"3. Add and remove orders, verify the stats update accordingly",,
+16,Multiple Bots Process Orders Simultaneously,"Multiple bots available, Pending orders",1. Add 5 orders and 4 bots,"Bots process orders simultaneously, and new orders are picked up as soon as a bot becomes idle",Pass
+,,,2. Verify bots process orders simultaneously,,
+,,,3. Ensure each bot processes one order at a time until orders are complete,,
+17,Order Processing Timer Reset After Bot Removal,Bot removed mid-process,1. Add 5 orders and 3 bots,"Order processing time is reset after a bot is removed, and another bot picks up the order",Pass
+,,,2. Remove 1 bot while it's processing an order,,
+,,,3. Verify the order's processing time is reset when another bot picks it up,,
