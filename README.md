@@ -74,7 +74,7 @@ The backend processes orders by assigning them to bots, and the frontend reflect
 - [Bot Removal Flow Chart](docs/diagrams/bot_removal_flow_chart.png)
 
 ## Prototypes
-You can access the prototypes in Figma by [clicking here](https://www.figma.com/proto/U1EL8YzSAPXEZh48yrDmxD/McDonald's-Order-Controller---UI-Design?node-id=0-1&t=0afBkF2KoO8EMWVK-1).
+You can access the prototypes in Figma by [clicking here](https://www.figma.com/design/U1EL8YzSAPXEZh48yrDmxD/McDonald's-Order-Controller---UI-Design?node-id=0-1&m=dev&t=suQvXnqDXrJDfiMJ-1).
 
 ## API Documentation
 The backend API is documented with **Swagger**. After starting the backend server, you can view the API documentation by visiting:
