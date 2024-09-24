@@ -39,7 +39,7 @@ This project is a prototype for managing McDonald's automated cooking bots, hand
 5. Run the frontend server:
     ```bash
     cd ../frontend
-    ng serve
+    npm run start
     
 The backend server will run on http://localhost:3000 and the frontend on http://localhost:4200.
 
@@ -65,10 +65,18 @@ The project is structured into two main parts:
 
 The backend processes orders by assigning them to bots, and the frontend reflects the real-time state of orders and bots through WebSocket communications.
 
+## Diagrams
+- [Order Management Flow Chart](.docs/diagrams/order_management_flow_chart.png)
+- [Bot Addition and Order Processing Flow Chart](.docs/diagrams/bot_addition_and_order_processing_flow.png).
+- [Bot Removal Flow Chart](.docs/diagrams/bot_removal_flow_chart.png)
+
+## Prototypes
+You can access the prototypes in Figma by [clicking here](https://www.figma.com/proto/U1EL8YzSAPXEZh48yrDmxD/McDonald's-Order-Controller---UI-Design?node-id=0-1&t=0afBkF2KoO8EMWVK-1).
+
 ## API Documentation
 The backend API is documented with **Swagger**. After starting the backend server, you can view the API documentation by visiting:
     
-    http://localhost:3000/mcdonalds-order-api/swagger-docs
+    http://localhost:3000/mcdonalds-order-api/swagger-doc
 
 
 ## Usage
@@ -88,3 +96,7 @@ The backend API is documented with **Swagger**. After starting the backend serve
 ### Order Completion:
 
 - Once an order is completed, it moves to the Completed area. If all bots are removed, processing halts, and remaining orders stay in Pending.
+
+## Test Cases
+
+You can view the detailed test cases [here](./docs/TEST_CASES.csv).
