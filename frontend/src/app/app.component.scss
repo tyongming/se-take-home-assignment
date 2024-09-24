@@ -14,7 +14,7 @@ header {
     align-items: end;
 
     & .item-count {
-        padding-left: 0.5rem;
+        // padding-left: 0.5rem;
         padding-right: 0.5rem;
         font-weight: bold;
         font-size: 20px;
@@ -28,7 +28,7 @@ header {
     }
 }
 
-button {
+.control-button button {
     font-size: 12px;
     color: #D9D9D9;
     width: 150px;

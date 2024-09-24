@@ -1,9 +1,9 @@
 <div class="min-h-screen h-full bg-[#8E8E93] flex flex-col items-center justify-center">
 
     <!-- Header -->
-    <header class="bg-[#FFFFFF20] w-full py-6 px-8 flex items-end">
+    <header class="bg-[#FFFFFF20] w-full py-6 px-8 flex items-end relative">
         <img class="max-w-[150px]" src="assets/images/logos/white_mcdonalds_text_logo.png" alt="Logo">
-        <div class="dashboard flex ml-24">
+        <div class="dashboard flex ml-4 md:ml-10 xl:ml-24">
             <div class="dashboard-item">
                 <div class="item-count">{{totalOrders}}</div>
                 <div class="label">Total Orders</div>
@@ -25,6 +25,15 @@
                 <div class="label">Idle Bots</div>
             </div>
         </div>
+        <span class="bg-white rounded-full w-[40px] h-[40px] absolute right-8 top-1/2 transform -translate-y-1/2 p-2 cursor-pointer"
+        [matMenuTriggerFor]="menu">
+            <img src="assets/images/icons/burger-menu.png" alt="">
+        </span>
+        <mat-menu #menu="matMenu" yPosition="below" class="min-w-[12rem] bg-[#A5A5A9]">
+            <button mat-menu-item class="text-white" (click)="clearCompletedOrders()">
+               Clear Completed Orders
+            </button>
+        </mat-menu>
     </header>
 
     <!-- Orders Section -->
@@ -77,7 +86,7 @@
     </div>
 
     <!-- Buttons Section -->
-    <div class="flex w-full px-4 py-2">
+    <div class="control-button flex w-full px-4 py-2">
         <button class="hover:bg-[#ffffff20] text-white p-2 rounded-lg flex flex-col items-center"
             (click)="addOrders(OrderType.Normal)">
             <img src="assets/images/icons/create-order.png" alt=""> New Normal Order

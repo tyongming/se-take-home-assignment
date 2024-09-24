@@ -166,6 +166,22 @@ export class AppComponent implements OnInit {
     });
   }
 
+  clearCompletedOrders() {
+    this.isLoading = true;
+    this._appService.clearCompletedOrders().subscribe((res: any) => {
+      if (res) {
+        this.isLoading = false;
+        // console.log(res);
+        this,this.completedOrders = [];
+        this.getStats();
+        this.openSnackBar(res.message, 2000);
+      }
+    }, (error) => {
+      this.isLoading = false;
+      this.openSnackBar(error, 5000);
+    });
+  }
+
   getStats() {
     this.isLoading = true;
     this._appService.getOrderStats().subscribe((res: any) => {

@@ -39,6 +39,10 @@ export class AppService {
   getOrderStats = (): Observable<any> => {
     return this._http.get(`${this.serverUrl}${this.apiPath}/orders/stats`).pipe(catchError(this.handleError), timeout(this.timeOut));
   }
+
+  clearCompletedOrders = (): Observable<any> => {
+    return this._http.delete(`${this.serverUrl}${this.apiPath}/orders`).pipe(catchError(this.handleError), timeout(this.timeOut));
+  }
   
   // Bots API
   

@@ -117,4 +117,9 @@ export class OrdersService {
 
     return { message: 'Order updated successfully', updateOrder };
   }
+
+  clearCompletedOrders() {
+    this.orders = this.orders.filter(order => order.status !== OrderStatus.Completed);
+    return { message: 'Completed orders cleared successfully' };
+  }
 }

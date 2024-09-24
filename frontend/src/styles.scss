@@ -61,7 +61,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   color: white;
 }
 
-.cdk-overlay-pane {
+.cdk-overlay-pane:has(.snackbar) {
   transform: translateY(-75px)!important;
 }
 

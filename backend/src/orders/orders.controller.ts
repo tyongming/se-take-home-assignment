@@ -52,6 +52,12 @@ export class OrdersController {
     return this.ordersService.getOrderStats();
   }
 
+  @Delete()
+  @ApiOperation({ summary: 'Clear all completed orders' })
+  clearCompletedOrders() {
+    return this.ordersService.clearCompletedOrders();
+  }
+
   @Get(':id')
   @ApiOperation({ summary: 'Get an order by ID' })
   findOne(@Param('id') id: number) {
